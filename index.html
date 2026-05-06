@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Engineering Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Mulish:wght@300;400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue:         #1A4A8A;
+      --blue-mid:     #1D5299;
+      --blue-light:   #E8EFF8;
+      --white:        #FFFFFF;
+      --off-white:    #F7F8FA;
+      --page-bg:      #F2F4F7;
+      --ink:          #1C1C1C;
+      --ink-mid:      #3D3D3D;
+      --ink-light:    #6B7280;
+      --border:       #D8DCE4;
+      --border-light: #E8EBF0;
+      --display:      'Garamond', Georgia, serif;
+      --body:         'Mulish', sans-serif;
+      --label:        'Lato', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--page-bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION 1 — HERO
+    ═══════════════════════════════════════════════ */
+    .hero {
+      background: var(--white);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 10vw 80px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: var(--blue);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border-light) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: var(--label);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.15s;
+      position: relative; z-index: 1;
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(35px, 8vw, 80px);
+      font-weight: 500;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      position: relative; z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.75s ease forwards 0.28s;
+    }
+
+    .hero-title span {
+      color: var(--blue);
+      display: block;
+      font-weight: 600;
+    }
+
+    .hero-rule {
+      width: 56px;
+      height: 2px;
+      background: var(--blue);
+      margin: 36px 0;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards 0.45s;
+      position: relative; z-index: 1;
+    }
+
+    .company-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.58s;
+      position: relative; z-index: 1;
+    }
+
+    .company-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .company-icon {
+      width: 38px; height: 38px;
+      border: 1.5px solid var(--blue);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .company-icon svg { width: 18px; height: 18px; fill: var(--blue); }
+
+    .company-name {
+      font-family: var(--label);
+      font-size: 1.5rem;
+      letter-spacing: 0.11em;
+      color: var(--ink-mid);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .company-divider { width: 1px; height: 20px; background: var(--border); }
+
+    .company-sub {
+      font-family: var(--label);
+      font-size: 1.1rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+      font-weight: 300;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 36px; left: 10vw;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--label);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      color: var(--ink-light);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards 0.9s;
+      z-index: 1;
+    }
+
+    .scroll-line {
+      width: 36px; height: 1px;
+      background: var(--border);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      left: -100%; top: 0;
+      width: 100%; height: 100%;
+      background: var(--blue);
+      animation: scanLine 2.4s ease infinite 1.2s;
+    }
+    @keyframes scanLine { 0% { left:-100%; } 100% { left:100%; } }
+
+    /* ═══════════════════════════════════════════════
+       SECTION 2 — MESSAGE
+    ═══════════════════════════════════════════════ */
+    .message-section {
+      background: var(--blue-light);
+      padding: 90px 10vw;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--label);
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 400;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--blue);
+    }
+
+    .message-box {
+      max-width: 760px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 2px;
+      padding: 44px 50px;
+      box-shadow: 0 2px 16px rgba(26,74,138,0.06);
+    }
+
+    .message-text {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink-mid);
+      font-weight: 300;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION 3 — REPORTS
+    ═══════════════════════════════════════════════ */
+    .reports-section {
+      background: var(--off-white);
+      padding: 90px 10vw 110px;
+    }
+
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 12px;
+    }
+
+    .report-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
+      border-radius: 2px;
+      padding: 36px 30px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .report-card:hover {
+      box-shadow: 0 6px 28px rgba(26,74,138,0.10);
+      transform: translateY(-2px);
+    }
+
+    .card-number {
+      font-family: var(--label);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .card-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--blue-light);
+    }
+    .card-icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--blue); fill: none; stroke-width: 1.5;
+    }
+
+    .card-title {
+      font-family: var(--display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .card-desc {
+      font-size: 0.86rem;
+      line-height: 1.8;
+      color: var(--ink-light);
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .card-rule { height: 1px; background: var(--border-light); }
+
+    .view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--label);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      color: var(--blue);
+      text-transform: uppercase;
+      background: none; border: none;
+      cursor: pointer; padding: 0;
+      font-weight: 400;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .view-btn:hover { gap: 13px; color: var(--blue-mid); }
+    .view-btn svg {
+      width: 13px; height: 13px;
+      stroke: currentColor; fill: none; stroke-width: 2;
+      transition: transform 0.2s;
+    }
+    .view-btn:hover svg { transform: translateX(2px); }
+
+    /* ═══════════════════════════════════════════════
+       PDF MODAL
+    ═══════════════════════════════════════════════ */
+    .pdf-overlay {
+      position: fixed; inset: 0;
+      background: rgba(28,28,28,0.55);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.2s ease;
+    }
+    .pdf-overlay.active { display: flex; }
+
+    .pdf-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      flex-shrink: 0;
+      border-left: 4px solid var(--blue);
+    }
+
+    .pdf-modal-title {
+      font-family: var(--label);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-mid);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pdf-modal-title::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%; background: var(--blue);
+    }
+
+    .pdf-modal-actions { display: flex; align-items: center; gap: 10px; }
+
+    .pdf-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--label);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--blue);
+      border: none; border-radius: 2px;
+      padding: 8px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 400;
+      transition: background 0.2s;
+    }
+    .pdf-download-btn:hover { background: var(--blue-mid); }
+    .pdf-download-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .pdf-close-btn {
+      width: 34px; height: 34px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--ink-light);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .pdf-close-btn:hover { color: var(--ink); border-color: var(--ink-light); }
+    .pdf-close-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .pdf-viewer-wrap {
+      flex: 1; position: relative; overflow: hidden;
+      background: var(--page-bg);
+    }
+    .pdf-viewer-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    .pdf-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px;
+      background: var(--off-white);
+    }
+    .pdf-placeholder svg { width: 48px; height: 48px; stroke: var(--border); fill: none; stroke-width: 1; }
+    .pdf-placeholder p {
+      font-family: var(--label);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .pdf-placeholder .upload-hint {
+      font-size: 0.72rem;
+      color: var(--border);
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    @media (max-width: 900px) { .reports-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) {
+      .hero, .message-section, .reports-section { padding-left: 7vw; padding-right: 7vw; }
+      .message-box { padding: 30px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SECTION 1 — HERO -->
+  <section class="hero">
+    <p class="hero-tag"></p>
+
+    <h1 class="hero-title">
+      <span>2026 Selective Entry High School (SEHS) Maths Games Day</span>
+    </h1>
+
+    <div class="hero-rule"></div>
+
+    <div class="company-row">
+      <div class="company-badge">
+        <div class="company-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L22 7V17L12 22L2 17V7L12 2Z"/>
+          </svg>
+        </div>
+        <span class="company-name">Melbourne High School • Maths Extension Group (MEG)</span>
+      </div>
+      <div class="company-divider"></div>
+      <span class="company-sub">Ernest Lin</span>
+    </div>
+
+    <div class="scroll-cue">
+      <span class="scroll-line"></span>
+      Scroll to explore
+    </div>
+  </section>
+
+  <!-- SECTION 2 — MESSAGE -->
+  <section class="message-section">
+    <div class="message-box">
+      <p class="message-text">Hi everyone! Thank you so much for attending this year's SEHS Maths Games Day - it's our pleasure to organise and host such an incredible event, and we hope you had an amazing experience. </p>                                                                                                                                                                                                                                                                                                                    </p>
+      <p class="message-text">As popularly requested in previous years, here are some of the materials used in today's activities, consisting of questions, answers and solutions.</p>                                                                                                                                                                                                                                                                                                   </p>
+      <p class="message-text">Thanks again for your support! We hope you have a great rest of the year and we'll see you next time.</p>
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — REPORTS -->
+  <section class="reports-section">
+    <p class="section-label">Materials</p>
+
+    <div class="reports-grid">
+
+      <div class="report-card">
+        <span class="card-number">01 / 03</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="card-title">Pair Games</h3>
+        <p class="card-desc">Placeholder description for the first technical document. Briefly outline the scope, methodology, and key findings covered within this report. Keep to two or three concise sentences.</p>
+        <div class="card-rule"></div>
+        <button class="view-btn" onclick="openPDF('Report Title One', null)">
+          View PDF
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <div class="report-card">
+        <span class="card-number">02 / 03</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="card-title">Problem-solving</h3>
+        <p class="card-desc">Placeholder description for the second technical document. Briefly outline the scope, methodology, and key findings covered within this report. Keep to two or three concise sentences.</p>
+        <div class="card-rule"></div>
+        <button class="view-btn" onclick="openPDF('Report Title Two', null)">
+          View PDF
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+      <div class="report-card">
+        <span class="card-number">03 / 03</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="card-title">Relay Race</h3>
+        <p class="card-desc">Placeholder description for the third technical document. Briefly outline the scope, methodology, and key findings covered within this report. Keep to two or three concise sentences.</p>
+        <div class="card-rule"></div>
+        <button class="view-btn" onclick="openPDF('Report Title Three', null)">
+          View PDF
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PDF OVERLAY -->
+  <div class="pdf-overlay" id="pdfOverlay">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title" id="pdfModalTitle">Document Name</div>
+      <div class="pdf-modal-actions">
+        <a class="pdf-download-btn" id="pdfDownloadBtn" href="#" download>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+        <button class="pdf-close-btn" onclick="closePDF()" title="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="pdf-viewer-wrap">
+      <iframe id="pdfIframe" title="PDF Viewer" style="display:none;"></iframe>
+      <div class="pdf-placeholder" id="pdfPlaceholder">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <p id="pdfPlaceholderTitle">Report Title</p>
+        <p class="upload-hint">Replace the PDF src in the source code to load your document here</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PDF_SOURCES = {
+      'Report Title One': './d1.pdf',
+      'Report Title Two': './d2.pdf',
+      'Report Title Three': './d3.pdf'
+    };
+
+    function openPDF(title, src = null) {
+      const overlay = document.getElementById('pdfOverlay');
+      const iframe = document.getElementById('pdfIframe');
+      const placeholder = document.getElementById('pdfPlaceholder');
+      const dlBtn = document.getElementById('pdfDownloadBtn');
+
+      const resolvedSrc = src || PDF_SOURCES[title];
+
+      document.getElementById('pdfModalTitle').textContent = title;
+      document.getElementById('pdfPlaceholderTitle').textContent = title;
+
+      if (resolvedSrc) {
+        // browser PDF rendering works better with toolbar params
+        iframe.src = resolvedSrc + '#view=FitH';
+
+        iframe.style.display = 'block';
+        placeholder.style.display = 'none';
+
+        dlBtn.href = resolvedSrc;
+        dlBtn.style.pointerEvents = 'auto';
+        dlBtn.style.opacity = '1';
+
+      } else {
+        iframe.removeAttribute('src');
+
+        iframe.style.display = 'none';
+        placeholder.style.display = 'flex';
+
+        dlBtn.href = '#';
+        dlBtn.style.pointerEvents = 'none';
+        dlBtn.style.opacity = '0.4';
+      }
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePDF() {
+      document.getElementById('pdfOverlay').classList.remove('active');
+
+      const iframe = document.getElementById('pdfIframe');
+      iframe.removeAttribute('src');
+
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('pdfOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closePDF();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePDF();
+    });
+  </script>
+</body>
+</html>
