@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SEHS Maths Games Day | Thank You Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Mulish:wght@300;400;500;600&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #1A4A8A;
+      --blue-mid: #1D5299;
+      --blue-light: #E8EFF8;
+      --white: #FFFFFF;
+      --off-white: #F9FAFE;
+      --page-bg: #F0F3F9;
+      --ink: #1C1C1C;
+      --ink-mid: #3D3D3D;
+      --ink-light: #6B7280;
+      --border: #DFE3EA;
+      --border-light: #EDF0F5;
+      --display: 'Cormorant Garamond', Georgia, serif;
+      --body: 'Mulish', sans-serif;
+      --label: 'Lato', sans-serif;
+      --script: 'Playfair Display', 'Times New Roman', serif;
+      --card-radius: 2rem;
+      --transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    body {
+      background: radial-gradient(circle at 10% 30%, #EFF3FC, #E6ECF5);
+      font-family: var(--body);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 5rem 1.5rem;  /* extra bottom padding for fixed nav */
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* floating animated particles */
+    body::before {
+      content: "✨";
+      font-size: 4rem;
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      opacity: 0.2;
+      animation: floatGlow 12s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "🔢";
+      font-size: 5rem;
+      position: absolute;
+      bottom: 8%;
+      right: 4%;
+      opacity: 0.15;
+      animation: floatGlow 14s infinite reverse;
+      pointer-events: none;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(6deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* main flip-book container */
+    .flipbook {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      perspective: 1800px;
+    }
+
+    .cards-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+    }
+
+    .slides-wrapper {
+      display: flex;
+      transition: transform 0.55s var(--transition-smooth);
+      will-change: transform;
+    }
+
+    .card-page {
+      flex: 0 0 100%;
+      background: var(--white);
+      backdrop-filter: blur(0px);
+      border-radius: var(--card-radius);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 2.5rem 2rem;
+      min-height: 580px;
+      max-height: 75vh;
+      scrollbar-width: thin;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s;
+    }
+
+    .card-page::-webkit-scrollbar {
+      width: 5px;
+    }
+    .card-page::-webkit-scrollbar-track {
+      background: var(--border-light);
+      border-radius: 10px;
+    }
+    .card-page::-webkit-scrollbar-thumb {
+      background: var(--blue);
+      border-radius: 10px;
+    }
+
+    /* lively inner elements */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--blue-light);
+      padding-bottom: 0.8rem;
+    }
+    .page-icon {
+      background: var(--blue-light);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      animation: softPulse 2s infinite;
+    }
+    @keyframes softPulse {
+      0% { box-shadow: 0 0 0 0 rgba(26,74,138,0.2);}
+      70% { box-shadow: 0 0 0 10px rgba(26,74,138,0);}
+      100% { box-shadow: 0 0 0 0 rgba(26,74,138,0);}
+    }
+    .page-title {
+      font-family: var(--display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--blue);
+    }
+
+    /* title page special */
+    .hero-card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 580px;
+    }
+    .big-badge {
+      font-family: var(--script);
+      font-size: 3.2rem;
+      font-weight: 700;
+      font-style: italic;
+      background: linear-gradient(135deg, #1A4A8A, #3A7BBF);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 12px rgba(26,74,138,0.15);
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      padding: 0.2rem 0;
+    }
+    .hero-title-main {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .hero-title-main span {
+      color: var(--blue);
+      display: inline-block;
+      border-bottom: 3px solid var(--blue);
+      padding-bottom: 4px;
+    }
+    .hero-meta {
+      margin-top: 2rem;
+      font-family: var(--label);
+      font-size: 1rem;
+      color: var(--ink-mid);
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      width: 80%;
+    }
+
+    /* message box style */
+    .message-card {
+      background: var(--off-white);
+      border-left: 5px solid var(--blue);
+      padding: 1.4rem 2rem;
+      border-radius: 1.2rem;
+      margin: 1.5rem 0;
+      transition: transform 0.2s;
+    }
+    .message-card p {
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      color: var(--ink-mid);
+    }
+
+    /* feedback grid */
+    .feedback-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .qr-box {
+      background: white;
+      border-radius: 1rem;
+      padding: 0.8rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+      width: 190px;
+      text-align: center;
+    }
+    .qr-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 0.6rem;
+      background: #f5f5f5;
+    }
+    .feedback-cta {
+      flex: 1;
+      min-width: 220px;
+    }
+    .btn-survey {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--blue);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-family: var(--label);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: all 0.25s;
+      margin-top: 0.8rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-survey:hover {
+      background: #0f3b6e;
+      gap: 16px;
+      transform: translateY(-2px);
+    }
+
+    /* resources grid - 3 side by side boxes spanning full width */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.8rem;
+      margin-top: 1.8rem;
+      width: 100%;
+    }
+    .resource-card {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .resource-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -12px rgba(26,74,138,0.15);
+      border-color: var(--blue-light);
+    }
+    .card-type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .resource-title {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin: 0.6rem 0;
+    }
+    .resource-desc {
+      font-size: 0.85rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+      margin: 0.8rem 0;
+      flex: 1;
+    }
+    .pdf-btn {
+      background: none;
+      border: none;
+      color: var(--blue);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--label);
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      cursor: pointer;
+      transition: gap 0.2s;
+      align-self: flex-start;
+    }
+    .pdf-btn svg {
+      width: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .pdf-btn:hover {
+      gap: 12px;
+      color: var(--blue-mid);
+    }
+
+    /* responsive for mobile: stack boxes */
+    @media (max-width: 780px) {
+      .resources-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+    }
+
+    /* FIXED NAVIGATION BAR (always at bottom) */
+    .fixed-nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      z-index: 1100;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .nav-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      width: 48px;
+      height: 48px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      color: var(--blue);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-btn:hover {
+      background: var(--blue);
+      color: white;
+      transform: scale(1.03);
+      border-color: var(--blue);
+    }
+    .dots {
+      display: flex;
+      gap: 12px;
+      padding: 0 0.5rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 10px;
+      background: var(--border);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .dot.active {
+      width: 28px;
+      background: var(--blue);
+    }
+
+    /* instruction text at bottom right corner */
+    .flip-instruction {
+      position: fixed;
+      bottom: 80px;
+      right: 16px;
+      background: rgba(26, 74, 138, 0.85);
+      backdrop-filter: blur(4px);
+      color: white;
+      font-family: var(--label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 40px;
+      letter-spacing: 0.03em;
+      z-index: 1100;
+      pointer-events: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flip-instruction span {
+      font-size: 1rem;
+    }
+
+    /* watermark footer (static) */
+    .watermark-footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-family: var(--label);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: #8E9AAB;
+      border-top: 1px solid rgba(26,74,138,0.2);
+      padding-top: 1.2rem;
+      padding-bottom: 0.5rem;
+      width: 100%;
+      max-width: 1280px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: opacity 0.2s;
+      background: transparent;
+    }
+    .watermark-footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .watermark-footer span::before {
+      content: "✦";
+      font-size: 0.65rem;
+      color: var(--blue);
+    }
+    .watermark-footer span::after {
+      content: "✦";
+      font-size: 0.65rem;
+      color: var(--blue);
+    }
+
+    /* ENHANCED BOTTOM MESSAGES (bigger, eye-catching) */
+    .bottom-message {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1rem;
+      background: linear-gradient(135deg, var(--blue-light), #E0E9F5);
+      border-radius: 60px;
+      font-family: var(--label);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      color: var(--blue);
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .bottom-message span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bottom-message i {
+      font-style: normal;
+      font-size: 1.2rem;
+    }
+    .pdf-hint-message {
+      margin-top: 1.8rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--ink-mid);
+      font-weight: 500;
+      background: var(--off-white);
+      border-radius: 40px;
+      padding: 0.7rem;
+    }
+
+    /* pdf overlay unchanged */
+    .pdf-overlay {
+      position: fixed; inset: 0;
+      background: rgba(28,28,28,0.65);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      flex-direction: column;
+      animation: fadeIn 0.2s ease;
+    }
+    .pdf-overlay.active { display: flex; }
+    .pdf-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      background: var(--white);
+      border-left: 4px solid var(--blue);
+    }
+    .pdf-close-btn {
+      width: 34px; height: 34px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+    .pdf-viewer-wrap {
+      flex: 1; background: #f2f2f2;
+      position: relative;
+    }
+    .pdf-viewer-wrap iframe { width: 100%; height: 100%; border: none; }
+    .pdf-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: var(--off-white);
+      gap: 16px;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @media (max-width: 680px) {
+      .card-page { padding: 1.5rem; }
+      .page-title { font-size: 1.7rem; }
+      .fixed-nav-bar { padding: 0.5rem 0.8rem; }
+      .nav-btn { width: 42px; height: 42px; font-size: 1.2rem; }
+      .flip-instruction { bottom: 72px; right: 12px; font-size: 0.7rem; }
+      .bottom-message { font-size: 0.85rem; padding: 0.6rem 0.8rem; }
+      .big-badge { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="flipbook">
+  <div class="cards-slider">
+    <div class="slides-wrapper" id="slidesWrapper">
+      <!-- PAGE 1 - TITLE / WELCOME -->
+      <div class="card-page hero-card">
+        <div class="big-badge">Thank You!</div>
+        <h1 class="hero-title-main">
+          <span>SEHS Maths Games Day 2026</span><br>
+        </h1>
+        <div style="margin: 1rem 0 0.5rem; font-size: 1.2rem;">🧮 ♟️ 📐</div>
+        <div class="hero-meta">
+          <p style="font-weight: 500;">Melbourne High School • Maths Extension Group (MEG)</p>
+          <p style="font-size: 1.3rem; color: var(--ink-light); margin-top: 20px;">Flip through →</p>
+        </div>
+      </div>
+
+      <!-- PAGE 2 - THANK YOU MESSAGE -->
+      <div class="card-page">
+        <div class="page-header">
+          <div class="page-icon">💙</div>
+          <h2 class="page-title">Heartfelt Thanks</h2>
+        </div>
+        <div class="message-card">
+          <p>✨ Hi everyone! Thank you so much for attending this year's SEHS Maths Games Day. It's our absolute pleasure to organise and host such an incredible event! We really hope you had an amazing and fun experience!</p>
+          <p>📚 As popularly requested in previous years, here are some of the materials used in today's activities, consisting of questions, answers and solutions — all available on the last page.</p>
+          <p>🎉 Thanks again for your support! We wish you a great rest of the year, and hope to see you again soon.</p>
+          <p style="margin-top: 1rem; font-style: italic; color: var(--blue);">— Maths Extension Group Cabinet</p>
+        </div>
+        <!-- enhanced bottom message -->
+        <div class="bottom-message">
+          <span>🏆 Keep loving maths &nbsp;✨&nbsp; Stay curious!</span>
+        </div>
+      </div>
+
+      <!-- PAGE 3 - FEEDBACK SURVEY -->
+      <div class="card-page">
+        <div class="page-header">
+          <div class="page-icon">📋</div>
+          <h2 class="page-title">Feedback Survey</h2>
+        </div>
+        <div class="feedback-layout">
+          <div class="qr-box">
+            <img src="./QR_FeedbackSurvey.png" alt="Feedback QR code" style="width:100%; aspect-ratio:1/1; object-fit: contain;" onerror="this.src='https://placehold.co/180x180?text=Scan+QR'">
+            <p style="font-size:0.7rem; margin-top: 8px;">scan to give feedback</p>
+          </div>
+          <div class="feedback-cta">
+            <h3 style="font-family: var(--display); font-size: 1.7rem; color: var(--blue);">Help us improve</h3>
+            <p style="margin: 0.8rem 0 0.4rem; line-height: 1.5;">Your responses will be immensely valuable in shaping future SEHS Maths Games Days. Tell us what you loved and how we can make the day even better.</p>
+            <a href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=h42eJG9AWU2cviWaMsGmAQuq6jcOvohCn7R129jfJEFUOVNDNDBGVVNSQk5INllSWjFVV1RPVUlINi4u" target="_blank" class="btn-survey">
+              Complete Survey 
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+        <!-- enhanced bottom message -->
+        <div class="bottom-message">
+          <span>⭐ Quick 2-min survey — help us improve!</span>
+        </div>
+      </div>
+
+      <!-- PAGE 4 - RESOURCES (3 side by side boxes spanning full width) -->
+      <div class="card-page">
+        <div class="page-header">
+          <div class="page-icon">📖</div>
+          <h2 class="page-title">Resources & Materials</h2>
+        </div>
+        <p style="margin-bottom: 0.8rem; font-weight: 300;">Download materials, problem sets & solutions from today’s activities.</p>
+        <div class="resources-grid">
+          <!-- Pair Games card -->
+          <div class="resource-card">
+            <div class="card-type">01 / 03</div>
+            <div class="resource-title">Pair Games</div>
+            <p class="resource-desc">1v1 puzzle games to play against one another</p>
+            <button class="pdf-btn" onclick="openPDF('Pair Games', null)">
+              View PDF 
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <!-- Problem Solving card -->
+          <div class="resource-card">
+            <div class="card-type">02 / 03</div>
+            <div class="resource-title">Problem Solving</div>
+            <p class="resource-desc">Challenging problem set and full, step-by-step solutions for self-learning</p>
+            <button class="pdf-btn" onclick="openPDF('Problem-solving', null)">
+              View PDF 
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          <!-- Relay Race card -->
+          <div class="resource-card">
+            <div class="card-type">03 / 03</div>
+            <div class="resource-title">Relay Race</div>
+            <p class="resource-desc">Series of 20 rapid-pace questions for teams competing against each other</p>
+            <button class="pdf-btn" onclick="openPDF('Relay Race', null)">
+              View PDF 
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+        <!-- enhanced PDF hint -->
+        <div class="pdf-hint-message">
+          📄 PDFs contain full solutions & question sets — enjoy!!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="watermark-footer">
+    <span>Ernest Lin @2026</span>
+  </div>
+</div>
+
+<!-- FIXED NAVIGATION BAR (always at bottom) -->
+<div class="fixed-nav-bar">
+  <button class="nav-btn" id="fixedPrevBtn" aria-label="Previous page">←</button>
+  <div class="dots" id="fixedDotsContainer"></div>
+  <button class="nav-btn" id="fixedNextBtn" aria-label="Next page">→</button>
+</div>
+
+<!-- INSTRUCTION TEXT AT BOTTOM RIGHT -->
+<div class="flip-instruction">
+  <span>➡️</span> Flip to next page
+</div>
+
+<!-- PDF OVERLAY (preserved) -->
+<div class="pdf-overlay" id="pdfOverlay">
+  <div class="pdf-modal-header">
+    <div class="pdf-modal-title" id="pdfModalTitle">Document Viewer</div>
+    <div class="pdf-modal-actions">
+      <button class="pdf-close-btn" onclick="closePDF()" title="Close">
+        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="pdf-viewer-wrap">
+    <iframe id="pdfIframe" title="PDF Viewer" style="display:none;"></iframe>
+    <div class="pdf-placeholder" id="pdfPlaceholder">
+      <svg width="48" height="48" viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <p id="pdfPlaceholderTitle">Document name</p>
+      <p class="upload-hint">Replace PDF files (2026SEHS_PairGames.pdf, 2026SEHS_ProblemSolving.pdf, 2026SEHS_RelayRace.pdf) in your folder to load actual content</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // PDF EXTRACTION MECHANISM (unchanged)
+  const PDF_SOURCES = {
+    'Pair Games':      './ErnestLIN - 2026SEHS_PairGames_ActivitySheets.pdf',
+    'Problem-solving': './ErnestLIN - 2026SEHS_ProblemSolving_Qu&Sol.pdf',
+    'Relay Race':      './ErnestLIN - 2026SEHS_RelayRace_Qu&Sol.pdf'
+  };
+
+  function openPDF(title, src = null) {
+    const overlay = document.getElementById('pdfOverlay');
+    const iframe = document.getElementById('pdfIframe');
+    const placeholder = document.getElementById('pdfPlaceholder');
+    const resolvedSrc = src || PDF_SOURCES[title];
+    document.getElementById('pdfModalTitle').textContent = title;
+    document.getElementById('pdfPlaceholderTitle').textContent = title;
+
+    if (resolvedSrc) {
+      iframe.src = resolvedSrc + '#view=FitH';
+      iframe.style.display = 'block';
+      placeholder.style.display = 'none';
+    } else {
+      iframe.removeAttribute('src');
+      iframe.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePDF() {
+    const overlay = document.getElementById('pdfOverlay');
+    overlay.classList.remove('active');
+    const iframe = document.getElementById('pdfIframe');
+    iframe.removeAttribute('src');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('pdfOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closePDF();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePDF();
+  });
+
+  // FLIPBOOK CAROUSEL LOGIC (sync with fixed navigation)
+  const slidesWrapper = document.getElementById('slidesWrapper');
+  const slides = document.querySelectorAll('.card-page');
+  const fixedPrevBtn = document.getElementById('fixedPrevBtn');
+  const fixedNextBtn = document.getElementById('fixedNextBtn');
+  const fixedDotsContainer = document.getElementById('fixedDotsContainer');
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+
+  function updateCarousel() {
+    const offset = -currentIndex * 100;
+    slidesWrapper.style.transform = `translateX(${offset}%)`;
+    // update fixed dots
+    document.querySelectorAll('#fixedDotsContainer .dot').forEach((dot, idx) => {
+      if (idx === currentIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  function goToSlide(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    currentIndex = index;
+    updateCarousel();
+  }
+
+  function nextSlide() {
+    if (currentIndex + 1 < totalSlides) currentIndex++;
+    else currentIndex = 0;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    if (currentIndex - 1 >= 0) currentIndex--;
+    else currentIndex = totalSlides - 1;
+    updateCarousel();
+  }
+
+  // build dots inside fixed bar
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (i === currentIndex) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    fixedDotsContainer.appendChild(dot);
+  }
+
+  fixedPrevBtn.addEventListener('click', prevSlide);
+  fixedNextBtn.addEventListener('click', nextSlide);
+
+  // keyboard arrows (unchanged)
+  window.addEventListener('keydown', (e) => {
+    if (document.getElementById('pdfOverlay').classList.contains('active')) return;
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+      e.preventDefault();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+      e.preventDefault();
+    }
+  });
+
+  updateCarousel();
+</script>
+</body>
+</html>
